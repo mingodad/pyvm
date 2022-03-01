@@ -166,8 +166,10 @@ static funcp *_declare_function (fspace *SF, Token e, Token f, typeID t, Token *
 			if (arglist_compare (ovarglist, w->ovarglist)) {
 				// same function prototype again. no overload
 				if (t != w->type)
-{fprintf (stderr, "BAD FUNCTION[%s]\n", expand (e));
-					parse_error_ll ("overloading match, type mis-match");
+{
+                                    char t1[64], t2[64]; nametype (t1, t); nametype (t2, w->type);
+                                    fprintf (stderr, "BAD FUNCTION[%s] (%s != %s)\n", expand (e), t1, t2);
+                                    parse_error_ll ("overloading match, type mis-match");
 }
 				if (flagz & FUNCP_STATIC && !intchr (w->prototype, RESERVED_static))
 					addflag (w, RESERVED_static);
@@ -204,8 +206,10 @@ static funcp *_declare_function (fspace *SF, Token e, Token f, typeID t, Token *
 	for (w = p; w; p = w, w = w->next)
 		if (arglist_compare (ovarglist, w->ovarglist)) {
 			if (t != w->type)
-{fprintf (stderr, "BAD FUNCTION[%s]\n", expand (e));
-				parse_error_ll ("overload match, type mismatch");
+{
+                            char t1[64], t2[64]; nametype (t1, t); nametype (t2, w->type);
+                            fprintf (stderr, "BAD FUNCTION[%s] (%s != %s)\n", expand (e), t1, t2);
+                            parse_error_ll ("overload match, type mismatch");
 }
 			if (flagz & FUNCP_STATIC && !intchr (w->prototype, RESERVED_static))
 				addflag (w, RESERVED_static);
