@@ -1,6 +1,6 @@
 /*
  *  Implementation of the __builtin__ library
- * 
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -110,7 +110,7 @@ _module __object__ *abs_builtin (REFPTR argv[])
 
 /* lround: convert float to integer with rounding. pretty useful */
 
-extern int lround (double);
+extern long int lround (double);
 
 _module __object__ *lround_builtin (REFPTR argv[])
 {
@@ -501,7 +501,7 @@ _module __object__ *zip_builtin (REFPTR argv[], unsigned int argc)
 	}
 	return L;
 }
-		
+
 /* map */
 
 static class map_BuiltinObj : BuiltinCallableBase
@@ -726,7 +726,7 @@ _module __object__ *divmod_builtin (REFPTR argv[])
 	return new Tuplen (newIntObj (x/y), newIntObj (x%y));
 }
 
-/* sum 
+/* sum
  *	sum is a good builtin because it can speed up a very
  *	common algorithm which can't be done with miniJIT.
  *	Our goal is to super-optimize the most common case while
@@ -801,7 +801,7 @@ static void ListObj.list_concat (REFPTR *st, int sl, REFPTR *d, int n, int llen)
 		data [i].incref ();
 }
 
-/* compile 
+/* compile
  *	import pyc, initialize if not initialized, replace
  *	 __builtin__.compile with pyc.compile
  *
@@ -1154,7 +1154,7 @@ _module __object__ *dict_from_list (REFPTR argv[])
 
 /* remove a sublist from a list.
    The objects of the second list must all exist in the first list in the same
-   order, by id. 
+   order, by id.
 */
 
 static int rmvsubl (int *l1, uint i1, const int *l2, uint i2)
@@ -1236,7 +1236,7 @@ static __object__ *tupdict_hasitem (REFPTR argv[])
 	return &FalseObj;
 }
 
-/* rgb: 
+/* rgb:
 	def rgb (red, green, blue):
 		return red << 16 | green << 8 | blue
 
@@ -1469,7 +1469,7 @@ static const bltinfunc funcs [] = {
 	{"range",		SETARGC (1, 3), range_builtin},
 	{"raw_input",		SETARGC (0, 1), raw_input},
 	{"readfile",		SETARGC (1, 2), readfile_builtin},
-{"remove_sublist",	SETARGC (2, 2), remove_sublist},
+	{"remove_sublist",	SETARGC (2, 2), remove_sublist},
 	{"repr",		SETARGC (1, 1), repr_builtin},
 	{"reversed",		SETARGC (1, 1), reversed_builtin},
 	{"round",		SETARGC (1, 2), round_builtin},
@@ -1584,7 +1584,7 @@ static const struct {
 		("__weakrefs__", WeakRefList.o),
 		("__iidict_getitem__", newIntObj ((long) c_iidict_getitem)),
 		("__killvm__", newIntObj ((long) killvm)),
-		("object", TheObject = (__object__*) 
+		("object", TheObject = (__object__*)
 			new DynClassObj (new DictObj, NILTuple, new_interned ("object")))
 	);
 	D->setattr (Interns.__builtins__, (__object__*)D);
